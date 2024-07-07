@@ -55,7 +55,7 @@ export const ContactsPage = (props) => {
   // Sort contacts each time a new contact is added
   useEffect(() => {
     sortContacts(); 
-  }, [sortContacts])
+  }, [contacts, sortContacts])
 
   return (
     <div>

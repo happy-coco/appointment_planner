@@ -12,7 +12,7 @@ export const ContactsPage = (props) => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [duplicate, setDuplicate] = useState(false);
-  const [sortedContacts, setSortedContacts] = useState([]);
+  //const [sortedContacts, setSortedContacts] = useState([]);
   /*
   Clear form function
   */
@@ -27,7 +27,7 @@ export const ContactsPage = (props) => {
   "some" method sets duplicate variable to true if the input name is already saved
   */
   useEffect(() => {
-  const sortContacts = () => {
+  /*const sortContacts = () => {
     const sorted = [...contacts].sort((a, b) => {
       let x = a.name.toLowerCase();
       let y = b.name.toLowerCase();
@@ -37,7 +37,7 @@ export const ContactsPage = (props) => {
     });
     setSortedContacts(sorted);
   }
-    sortContacts();
+    sortContacts();*/
     setDuplicate(contacts.some(contact => contact.name === name));
   }, [name, contacts]);
   
@@ -53,6 +53,9 @@ export const ContactsPage = (props) => {
       alert('This name already exists!');
     }
   };
+
+  // Sort contacts for display
+  const sortedContacts = [...contacts].sort((a, b) => a.name.localeCompare(b.name));
   
   return (
     <div>

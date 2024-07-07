@@ -12,7 +12,7 @@ export const ContactsPage = (props) => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [duplicate, setDuplicate] = useState(false);
-
+  const [sortedContacts, setSortedContacts] = useState([]);
   /*
   Clear form function
   */
@@ -23,13 +23,24 @@ export const ContactsPage = (props) => {
   };
 
   /*
-  Using hook to check for contact name in the contacts array each time name or contacts change
+  Using hook to sort contacts and check for contact name in the contacts array each time name or contacts change, 
   "some" method sets duplicate variable to true if the input name is already saved
   */
   useEffect(() => {
+  const sortContacts = () => {
+    const sorted = [...contacts].sort((a, b) => {
+      let x = a.name.toLowerCase();
+      let y = b.name.toLowerCase();
+      if (x < y) {return -1;}
+      if (x > y) {return 1;}
+      return 0;
+    });
+    setSortedContacts(sorted);
+  }
+    sortContacts();
     setDuplicate(contacts.some(contact => contact.name === name));
   }, [name, contacts]);
-
+  
   // Submit contact form 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,21 +53,7 @@ export const ContactsPage = (props) => {
       alert('This name already exists!');
     }
   };
-  // Function to sort contacts alphabetically
-  const sortContacts = () => {
-    contacts.sort(function(a, b){
-      let x = a.name.toLowerCase();
-      let y = b.name.toLowerCase();
-      if (x < y) {return -1;}
-      if (x > y) {return 1;}
-      return 0;
-    });
-  }
-  // Sort contacts each time a new contact is added
-  useEffect(() => {
-    sortContacts(); 
-  }, [contacts, sortContacts])
-
+  
   return (
     <div>
       <section>
@@ -68,7 +65,7 @@ export const ContactsPage = (props) => {
       <hr />
       <section>
         <h2>Contacts</h2>
-        <TileList contacts={contacts} removeContact={removeContact} /> 
+        <TileList contacts={sortedContacts} removeContact={removeContact} /> 
       </section>
     </div>
   );

@@ -1,12 +1,29 @@
+.tile-list-container {
+  display: inline-block;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  min-height: 100vh; /* Ensure it takes the full height of the viewport */
+  width: 75%;
+  margin: 0 auto; /* Center the container */
+}
+
 .tile {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 20px 50px;
     margin: 10px 0;
+    width: 100%;
     border-radius: 5px;
-    width: 85%;
-    text-align: center;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
+.flex-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
 .tile-title {
     font-weight: bold;
     font-size: 1.5em;
@@ -15,12 +32,6 @@
 .tile-name {
   font-size: 1.375em;
 }
-  
-.flex-div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
   
 button {
     background-color: #f44336;

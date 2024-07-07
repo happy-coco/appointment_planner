@@ -6,13 +6,13 @@ import { TileList } from "../../components/tileList/TileList";
 export const ContactsPage = (props) => {
   const { contacts, addContact, removeContact } = props;
   /*
-  Define state variables for contact info and duplicate check
+  Define state variables for contact info, duplicate check, and sorted contacts
   */
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [duplicate, setDuplicate] = useState(false);
-  //const [sortedContacts, setSortedContacts] = useState([]);
+  const [sortedContacts, setSortedContacts] = useState([]);
   /*
   Clear form function
   */
@@ -27,17 +27,6 @@ export const ContactsPage = (props) => {
   "some" method sets duplicate variable to true if the input name is already saved
   */
   useEffect(() => {
-  /*const sortContacts = () => {
-    const sorted = [...contacts].sort((a, b) => {
-      let x = a.name.toLowerCase();
-      let y = b.name.toLowerCase();
-      if (x < y) {return -1;}
-      if (x > y) {return 1;}
-      return 0;
-    });
-    setSortedContacts(sorted);
-  }
-    sortContacts();*/
     setDuplicate(contacts.some(contact => contact.name === name));
   }, [name, contacts]);
   
@@ -54,9 +43,21 @@ export const ContactsPage = (props) => {
     }
   };
 
-  // Sort contacts for display
-  const sortedContacts = [...contacts].sort((a, b) => a.name.localeCompare(b.name));
-  
+  // Sort contacts each time a new contact is added
+  useEffect(() => {
+    const sortContacts = () => {
+      const sorted = contacts.sort(function(a, b){
+        let x = a.name.toLowerCase();
+        let y = b.name.toLowerCase();
+        if (x < y) {return -1;}
+        if (x > y) {return 1;}
+        return 0;
+      });
+      setSortedContacts(sorted);
+    }
+    sortContacts(); 
+  }, [name, contacts]);
+
   return (
     <div>
       <section>

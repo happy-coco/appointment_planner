@@ -17,12 +17,12 @@ function App() {
   const addContact = useCallback(
     (name, phone, email) => {
       setContacts((prevContacts) => { return [...prevContacts, {id: Date.now(), name: name, phone: phone, email: email}]});
-    }
+    }, []
   );
   const addAppointment = useCallback(
     (title, contact, date, time) => {
       setAppointments((prevAppointments) => { return [...prevAppointments, {id: Date.now(), title: title, contact: contact, date: date, time: time}]});
-    } // Initially used setContacts here too, thus when an appointment was submitted, new contacts with blank data were saved (bug)
+    }, [] // Initially used setContacts here too, thus when an appointment was submitted, new contacts with blank data were saved (bug)
   );
 
    /*
